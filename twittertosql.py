@@ -27,7 +27,7 @@ for page in tweepy.Cursor(api.user_timeline, id=targettwitterprofile, count=200)
         tweetid = tweet.id
         tweetdate = datetime.strptime(str(tweet.created_at)[:10],'%Y-%m-%d').strftime('%d-%m-%Y')
         tweettext = tweet.text
-        polarity = round(TextBlob(tweet.text).sentiment.polarity,4)
+        polarity = round(TextBlob(tweettext).sentiment.polarity,4)
         x.add_row([n,tweetid, tweetdate, tweettext, polarity])
         c.execute("insert into "+targettwitterprofile+" values (?,?,?,?)", (tweetid, tweetdate, tweettext, polarity))
         n+=1
